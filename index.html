@@ -33,93 +33,28 @@
           <label class="label">I am investing as:</label>
           <div class="control">
             <div class="select">
-              <select>
-                <option>Select dropdown</option>
-                <option>With options</option>
-              </select>
+              <select id="investor-list"> </select>
             </div>
           </div>
           <div class="field">
             <label class="label">How much would you like to invest</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" />
+              <input id="investment" class="input" type="text" value="30000" />
+            </div>
+            <div class="control">
+              <button id="search" class="button is-link">Search</button>
             </div>
           </div>
         </div>
       </div>
       <!--End form-->
       <!--Start cards-->
-      <div class="columns is-desktop flex-wrap">
-        <div class="column is-half">
-          <div class="card">
-            <header class="card-header flex-direction-d">
-              <p class="card-header-title">
-                Location
-              </p>
-              <p class="card-header-title">
-                Duration
-              </p>
-            </header>
-            <div class="card-content">
-              <div class="columns">
-                <div class="column">
-                  <div class="field">
-                    <label class="label">Interest paid</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        placeholder="Text input"
-                      />
-                    </div>
-                    <p class="help">On Maturity</p>
-                  </div>
-                  <div class="field">
-                    <label class="label">Expected gross return:</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        placeholder="Text input"
-                      />
-                    </div>
-                  </div>
-                  <div class="control">
-                    <button class="button is-primary">Submit</button>
-                  </div>
-                </div>
-                 <div class="column">
-                  <div class="field">
-                    <label class="label">Interest paid</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        placeholder="Text input"
-                      />
-                      <p class="help">Quarterly</p>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Expected gross return:</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        placeholder="Text input"
-                      />
-                    </div>
-                  </div>
-                  <div class="control">
-                    <button class="button is-primary">Submit</button>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="bonds" class="columns is-desktop flex-wrap"></div>
       <!--End cards-->
+      <div class="test"></div>
     </div>
+    <!-- <script src="js/easyhttp2.js"></script> -->
+    <script src="js/easyhttp.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
