@@ -38,10 +38,8 @@ function listBonds() {
           name = entry.name,
           months = entry.duration_months,
           //round percentages
-          quarterlyInterest =
-            Math.round(entry.quarterly_interest * 1000) / 10 + "%",
-          maturityInterest =
-            Math.round(entry.maturity_interest * 1000) / 10 + "%",
+          quarterlyInterest = (entry.quarterly_interest * 100).toFixed(1) + "%",
+          maturityInterest = (entry.maturity_interest * 100).toFixed(1) + "%",
           //get investment
           investment = document.querySelector("#investment").value,
           investmentPence = investment * 100,
@@ -52,83 +50,79 @@ function listBonds() {
           maturityReturnPence =
             investmentPence +
             ((investmentPence * entry.maturity_interest) / 12) * months,
-          quarterlyReturn = quarterlyReturnPence / 100;
-        maturityReturn = maturityReturnPence / 100;
+          quarterlyReturn = (quarterlyReturnPence / 100).toFixed(2);
+        maturityReturn = (maturityReturnPence / 100).toFixed(2);
 
         output += `
               <div class="column is-half">
-              <div class="card">
-              <header class="card-header flex-direction-d">
-              <p class="card-header-title">
-              ${name}
-              </p>
-              <p class="card-header-title">
-              Duration ${months} months
-              </p>
-              </header>
-              <div class="card-content">
-              <div class="columns">
-              <div class="column">
-              <div class="field">
-              <label class="label">Interest paid</label>
-              <div class="control">
-              <input
-              class="input"
-              type="text"
-              value="${maturityInterest}"
-              disabled
-              />
-              </div>
-              <p class="help">On Maturity</p>
-              </div>
-              <div class="field">
-              <label class="label">Expected gross return:</label>
-              <div class="control">
-              <input
-              class="input"
-              type="text"
-              value="${maturityReturn}"
-              disabled
-              />
-              </div>
-              </div>
-              <div class="control">
-              <button id="maturity-return" class="button is-primary" onclick="makeInvestment(${id}, ${investorId}, 'maturity', ${maturityReturnPence})">>Submit</button>
-              </div>
-              </div>
-              <div class="column">
-              <div class="field">
-              <label class="label">Interest paid</label>
-              <div class="control">
-                        <input
-                        class="input"
-                        type="text"
-                        value="${quarterlyInterest}"
-                        disabled
-                        />
-                        <p class="help">Quarterly</p>
-                        </div>
-                        </div>
+                <div class="card">
+                  <header class="card-header flex-direction-d">
+                    <p class="card-header-title">${name}</p>
+                    <p class="card-header-title">Duration ${months} months</p>
+                  </header>
+                  <div class="card-content">
+                    <div class="columns">
+                      <div class="column">
                         <div class="field">
+                          <label class="label">Interest paid</label>
+                          <div class="control">
+                            <input
+                            class="input"
+                            type="text"
+                            value="${maturityInterest}"
+                            disabled
+                            />
+                        </div>
+                        <p class="help">On Maturity</p>
+                      </div>
+                      <div class="field">
                         <label class="label">Expected gross return:</label>
                         <div class="control">
-                        <input
-                        class="input"
-                        type="text"
-                        value="${quarterlyReturn}"
-                        disabled
-                        />
+                          <input
+                          class="input"
+                          type="text"
+                          value="£${maturityReturn}"
+                          disabled
+                          />
                         </div>
-                        </div>
+                      </div>
+                      <div class="control">
+                        <button id="maturity-return" class="button is-primary" onclick="makeInvestment(${id}, ${investorId}, 'maturity', ${maturityReturnPence})">Invest</button>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="field">
+                        <label class="label">Interest paid</label>
                         <div class="control">
-                        <button id="quaterly-return" class="button is-primary" onclick="makeInvestment(${id}, ${investorId}, 'quarterly', ${quarterlyReturnPence})">>Submit</button>
+                          <input
+                          class="input"
+                          type="text"
+                          value="${quarterlyInterest}"
+                          disabled
+                          />
+                          <p class="help">Quarterly</p>
                         </div>
+                      </div>
+                      <div class="field">
+                        <label class="label">Expected gross return:</label>
+                        <div class="control">
+                          <input
+                          class="input"
+                          type="text"
+                          value="£${quarterlyReturn}"
+                          disabled
+                          />
                         </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        `;
+                      </div>
+                      <div class="control">
+                        <button id="quaterly-return" class="button is-primary" onclick="makeInvestment(${id}, ${investorId}, 'quarterly', ${quarterlyReturnPence})">Invest</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      `;
       });
 
       document.querySelector("#bonds").innerHTML = output;

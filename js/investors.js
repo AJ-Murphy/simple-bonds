@@ -27,7 +27,7 @@ function listInvestors() {
               </div>
               <div class="column">
                 <div class="content">
-                  <button id="open-portfolio" class="button" onclick="model(${investorId}, '${fullName}')">Button</button>
+                  <button id="open-portfolio" class="button" onclick="model(${investorId}, '${fullName}')">View Investments</button>
                 </div>
               </div>
             </div>
@@ -44,17 +44,17 @@ function model(investorId, fullName) {
   let model = "";
   model = `
     <div id="modal" class="modal is-active">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-    <header class="modal-card-head">
-    <p class="modal-card-title">${fullName}</p>
-    <button class="delete" onclick="closeModel()" aria-label="close"></button>
-    </header>
-    <section class="modal-card-body">
-    <table id="table" class="table">
-    </table
-    </section>
-    </div>
+      <div class="modal-background"></div>
+      <div class="modal-card">
+      <header class="modal-card-head">
+      <p class="modal-card-title">${fullName}</p>
+      <button class="delete" onclick="closeModel()" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+      <table id="table" class="table">
+      </table
+      </section>
+      </div>
     </div>
     `;
   getPortfolio(investorId);
@@ -81,21 +81,21 @@ function getPortfolio(investorId) {
         response.data.forEach(function(entry) {
           const bondName = entry.bond.name,
             type = entry.type,
-            amount = entry.amount / 100,
-            expectedReturn = entry.expected_return / 100,
-            expectedProfit = entry.expected_profit / 100,
+            amount = (entry.amount / 100).toFixed(2),
+            expectedReturn = (entry.expected_return / 100).toFixed(2),
+            expectedProfit = (entry.expected_profit / 100).toFixed(2),
             status = entry.status,
             investmentId = entry.id;
 
           output += `
           <tr>
-          <th>Bond name</th><td>${bondName}</td>
-          <th>Type</th><td>${type}</td>
-          <th>Amount</th><td>£${amount}</td>
-          <th>Return</th><td>£${expectedReturn}</td>
-          <th>Profit</th><td>£${expectedProfit}</td>
-          <th>Status</th><td>${status}</td>
-          <td><button class="delete" onclick="deleteInvestment('${status}', ${investorId}, ${investmentId})"></button></td>
+            <th>Bond name</th><td>${bondName}</td>
+            <th>Type</th><td>${type}</td>
+            <th>Amount</th><td>£${amount}</td>
+            <th>Return</th><td>£${expectedReturn}</td>
+            <th>Profit</th><td>£${expectedProfit}</td>
+            <th>Status</th><td>${status}</td>
+            <td><button class="delete" onclick="deleteInvestment('${status}', ${investorId}, ${investmentId})"></button></td>
           </tr>
           `;
 
@@ -121,7 +121,7 @@ function deleteInvestment(status, investorId, investmentId) {
     );
     alert("Success");
   } else {
-    alert("Investment is already commited or already cancelled");
+    alert("Investment is already committed or has been cancelled");
   }
 }
 
