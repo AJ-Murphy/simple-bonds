@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Simple Bonds</title>
   </head>
-  <body>
+  <body class="bg-primary">
     <div class="container-fluid">
       <header>
-        <h1>Simple Bonds</h1>
+        <h1 class="text-white">Simple Bonds</h1>
         <nav>
           <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -24,15 +24,13 @@
         </nav>
       </header>
       <main>
-        <div class="container-fluid bg-secondary">
+        <div class="container-fluid bg-light">
           <div class="row">
             <div class="col-md-4">
               <form>
                 <div class="form-group">
-                  <label for="exampleFormControlSelect1">Investing as</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                  </select>
+                  <label for="investor-list">Investing as</label>
+                  <select class="form-control" id="investor-list"></select>
                 </div>
                 <div class="form-group">
                   <label for="formGroupExampleInput"
@@ -56,45 +54,13 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-6 p-3">
-            <div class="card">
-              <div class="card-header bg-secondary">
-                <h3>Name</h3>
-                <p>Months</p>
-              </div>
-              <div class="card-body">
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <ul class="list-unstyled text-justify text-center">
-                        <li class="card-text">
-                          <strong>7.5%</strong> <small>P.A</small>
-                        </li>
-                        <li class="card-text">Interest Paid</li>
-                        <li class="card-text">On Maturity</li>
-                        <li class="card-text">Expected return:</li>
-                        <li class="card-text">10000</li>
-                      </ul>
-                    </div>
-                    <div class="col">
-                      <ul class="list-unstyled text-justify text-center">
-                        <li class="card-text">
-                          <strong>7.5%</strong> <small>P.A</small>
-                        </li>
-                        <li class="card-text">Interest Paid</li>
-                        <li class="card-text">On Maturity</li>
-                        <li class="card-text">Expected return:</li>
-                        <li class="card-text">10000</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="container-fluid bg-light">
+          <div id="bonds" class="row">
+            <!--card entry here-->
           </div>
         </div>
       </main>
     </div>
+    <script src="js/app.js"></script>
   </body>
 </html>
