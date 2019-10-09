@@ -31,8 +31,7 @@ class Data {
         quarterlyInterest = (bond.quarterly_interest * 100).toFixed(1) + "%",
         maturityInterest = (bond.maturity_interest * 100).toFixed(1) + "%",
         //get investment
-        investment = 30000,
-        // investment = document.querySelector("#investment").value,
+        investment = document.querySelector("#investment").value,
         investmentPence = investment * 100,
         //calculate investment
         quarterlyReturnPence =
@@ -87,6 +86,19 @@ class Data {
     });
     document.querySelector("#bonds").innerHTML = output;
   }
+
+  //post investment
+  async postInvestment(data) {
+    const response = await fetch(`http://165.227.229.49:8000/${this.url}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }),
+      responseData = await response.json();
+    return responseData;
+  }
 }
 
 const investors = new Data("investors");
@@ -100,3 +112,30 @@ bonds
   .getBonds()
   .then()
   .catch(err => console.log(err));
+
+//investment value
+const investmentValue = document.querySelector("#investment");
+
+//Update value
+investmentValue.addEventListener("input", e => {
+  const userInput = e.target.value;
+
+  if (userInput !== "") {
+    bonds
+      .getBonds(userInput)
+      .then()
+      .catch(err => console.log(err));
+  }
+});
+
+// data = {
+//   bond_id: "7",
+//   type: "maturity",
+//   amount: 100000
+// };
+
+// const invest = new Data("investors/7/investments");
+// invest
+//   .postInvestment(data)
+//   .then(data => console.log(data))
+//   .catch(err => console.log(err));
