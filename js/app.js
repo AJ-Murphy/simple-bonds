@@ -24,6 +24,15 @@ function makeInvestment(investorId, id, type, amount) {
     .catch(err => console.log(err));
 }
 
+// Update bonds with new investor
+ui.investors.addEventListener("change", () => {
+  data
+    .get("bonds")
+    .then(results => ui.showBonds(results))
+    .catch(err => console.log(err));
+});
+
+// Update investment on change
 ui.investment.addEventListener("input", e => {
   const userInput = e.target.value;
 
