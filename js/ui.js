@@ -19,7 +19,9 @@ class UI {
     let output = "";
 
     dataInput.data.forEach(bond => {
-      const name = bond.name,
+      const id = bond.id,
+        investorId = this.investors.value,
+        name = bond.name,
         months = bond.duration_months,
         //round percentages
         quarterlyInterest = (bond.quarterly_interest * 100).toFixed(1) + "%",
@@ -56,19 +58,19 @@ class UI {
                     <li class="card-text text-muted"><strong>On Maturity</strong></li>
                     <li class="card-text">Expected return:</li>
                     <li class="card-text">£${maturityReturn}</li>
-                    <li class="card-text"><button type="button" class="btn btn-primary">Invest</button></li>
-                    </ul>
-                    </div>
-                    <div class="col">
-                    <ul class="list-unstyled text-justify text-center">
+                    <li class="card-text"><button type="button" class="btn btn-primary" onclick="makeInvestment(${investorId}, ${id}, 'maturity', ${maturityReturnPence})">Invest</button></li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <ul class="list-unstyled text-justify text-center">
                     <li class="card-text">
-                    <strong>${quarterlyInterest}</strong> <small>P.A</small>
+                      <strong>${quarterlyInterest}</strong> <small>P.A</small>
                     </li>
                     <li class="card-text text-muted">Interest paid</li>
                     <li class="card-text text-muted"><strong>Quarterly</strong></li>
                     <li class="card-text">Expected return:</li>
                     <li class="card-text">£${quarterlyReturn}</li>
-                    <li class="card-text"><button type="button" id="invest-btn" class="btn btn-primary" onclick="makeInvestment(9, 7, 'maturity', 10000)">Invest</button></li>
+                    <li class="card-text"><button type="button" class="btn btn-primary" onclick="makeInvestment(${investorId}, ${id}, 'quarterly', ${quarterlyReturnPence})">Invest</button></li>
                   </ul>
                 </div>
               </div>
