@@ -3,12 +3,12 @@ const data = new Data(),
 
 data
   .get("investors")
-  .then(results => ui.showInvestors(results))
+  .then(results => ui.selectInvestors(results))
   .catch(err => console.log(err));
 
 data
   .get("bonds")
-  .then(results => ui.showBonds(results))
+  .then(results => ui.listBonds(results))
   .catch(err => console.log(err));
 
 function makeInvestment(investorId, id, type, amount) {
@@ -28,7 +28,7 @@ function makeInvestment(investorId, id, type, amount) {
 ui.investors.addEventListener("change", () => {
   data
     .get("bonds")
-    .then(results => ui.showBonds(results))
+    .then(results => ui.listBonds(results))
     .catch(err => console.log(err));
 });
 
@@ -39,7 +39,7 @@ ui.investment.addEventListener("input", e => {
   if (userInput !== "") {
     data
       .get("bonds")
-      .then(results => ui.showBonds(results))
+      .then(results => ui.listBonds(results))
       .catch(err => console.log(err));
   }
 });

@@ -5,7 +5,7 @@ class UI {
     this.investment = document.querySelector("#investment");
   }
 
-  showInvestors(dataInput) {
+  selectInvestors(dataInput) {
     let output = "";
 
     dataInput.data.forEach(investor => {
@@ -15,7 +15,7 @@ class UI {
     this.investors.innerHTML = output;
   }
 
-  showBonds(dataInput) {
+  listBonds(dataInput) {
     let output = "";
 
     dataInput.data.forEach(bond => {
