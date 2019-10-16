@@ -3,6 +3,8 @@ class UI {
     this.investors = document.querySelector("#investor-list");
     this.bonds = document.querySelector("#bonds");
     this.investment = document.querySelector("#investment");
+    this.portfolios = document.querySelector("#portfolios");
+    // this.tableData = document.querySelector("#table-data");
   }
 
   selectInvestors(dataInput) {
@@ -13,6 +15,120 @@ class UI {
     });
 
     this.investors.innerHTML = output;
+  }
+
+  listInvestors(dataInput) {
+    let output = "";
+
+    dataInput.data.forEach(investor => {
+      output += `
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        ${investor.first_name} ${investor.last_name}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
+      </li>
+      `;
+    });
+
+    this.investors.innerHTML = output;
+  }
+
+  showPortfolio(investorId) {
+    let output = "";
+
+    output = `
+      <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-scrollable modal-lg"
+              role="document"
+            >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalScrollableTitle">
+                    investor.bond.name
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Bond Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Profit</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="table-data">
+                                         
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    `;
+
+    this.portfolios.innerHTML = output;
+  }
+
+  portfolioData(dataInput) {
+    let output = "";
+
+    dataInput.data.forEach(investment => {
+      const bondName = investment.bond.name,
+        type = investment.type,
+        amount = (investment.amount / 100).toFixed(2),
+        expectedReturn = (investment.expected_return / 100).toFixed(2),
+        expectedProfit = (investment.expected_profit / 100).toFixed(2),
+        status = investment.status,
+        investmentId = investment.id,
+        investorId = investment.investor.id;
+
+      output += `
+      <tr>
+        <td>${bondName}</td>
+        <td>${type}</td>
+        <td>£${amount}</td>
+        <td>£${expectedReturn}</td>
+        <td>£${expectedProfit}</td>
+        <td>${status}</td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteInvestment('${status}', ${investorId}, ${investmentId})">
+            Cancel
+          </button>
+        </td>
+      </tr>
+      `;
+    });
+
+    document.querySelector("#table-data").innerHTML = output;
   }
 
   listBonds(dataInput) {

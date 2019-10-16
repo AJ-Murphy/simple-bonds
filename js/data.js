@@ -18,4 +18,16 @@ class Data {
       responseData = await response.json();
     return responseData;
   }
+
+  async delete(url) {
+    const response = await fetch(`http://165.227.229.49:8000/${url}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+
+    responseData = await response.json();
+    return responseData;
+  }
 }
