@@ -1,6 +1,15 @@
 const data = new Data(),
   ui = new UI();
 
+ui.search.addEventListener("keyup", e => {
+  const searchText = e.target.value;
+  console.log(searchText);
+  data
+    .get("investors")
+    .then(results => ui.listInvestors(results, searchText))
+    .catch(err => console.log(err));
+});
+
 data
   .get("investors")
   .then(results => ui.listInvestors(results))

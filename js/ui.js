@@ -4,7 +4,7 @@ class UI {
     this.bonds = document.querySelector("#bonds");
     this.investment = document.querySelector("#investment");
     this.portfolios = document.querySelector("#portfolios");
-    // this.tableData = document.querySelector("#table-data");
+    this.search = document.querySelector("#search");
   }
 
   selectInvestors(dataInput) {
@@ -17,16 +17,25 @@ class UI {
     this.investors.innerHTML = output;
   }
 
-  listInvestors(dataInput) {
-    let output = "";
+  listInvestors(dataInput, search) {
+    let output = "",
+      regex;
 
     dataInput.data.forEach(investor => {
-      output += `
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        ${investor.first_name} ${investor.last_name}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
-      </li>
-      `;
+      regex = new RegExp(`^${search}`, "i");
+
+      if (
+        regex.test(investor.first_name) ||
+        regex.test(investor.last_name) ||
+        regex.test(undefined)
+      ) {
+        output += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+          ${investor.first_name} ${investor.last_name}
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
+          </li>
+          `;
+      }
     });
 
     this.investors.innerHTML = output;
