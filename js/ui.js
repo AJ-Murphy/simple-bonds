@@ -22,13 +22,11 @@ class UI {
       regex;
 
     dataInput.data.forEach(investor => {
+      let fullName = `${investor.first_name} ${investor.last_name}`;
+
       regex = new RegExp(`^${search}`, "i");
 
-      if (
-        regex.test(investor.first_name) ||
-        regex.test(investor.last_name) ||
-        regex.test(undefined)
-      ) {
+      if (regex.test(fullName) || regex.test(undefined)) {
         output += `
           <li class="list-group-item d-flex justify-content-between align-items-center">
           ${investor.first_name} ${investor.last_name}
