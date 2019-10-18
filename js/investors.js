@@ -35,24 +35,3 @@ function deleteInvestment(status, investorId, investmentId) {
     alert("Failed");
   }
 }
-
-// function deleteInvestment(status, investorId, investmentId) {
-//   if (status == "pending") {
-//     const http = new easyHTTP();
-//     http.delete(
-//       `http://165.227.229.49:8000/investors/${investorId}/investments/${investmentId}`,
-//       function(err, data) {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           console.log(data);
-//         }
-//       }
-//     );
-//     alert("Success");
-//   } else {
-//     alert("Investment is already committed or has been cancelled");
-//   }
-// }
-
-// listInvestors();
