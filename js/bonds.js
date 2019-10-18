@@ -43,3 +43,13 @@ ui.investment.addEventListener("input", e => {
       .catch(err => console.log(err));
   }
 });
+
+// Filter bonds on change
+
+ui.sort.addEventListener("change", () => {
+  console.log(ui.sort.selectedOptions);
+  data
+    .get("bonds")
+    .then(results => ui.listBonds(results))
+    .catch(err => console.log(err));
+});

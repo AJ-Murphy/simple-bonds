@@ -5,6 +5,7 @@ class UI {
     this.investment = document.querySelector("#investment");
     this.portfolios = document.querySelector("#portfolios");
     this.search = document.querySelector("#search");
+    this.sort = document.querySelector("#investor-sort");
   }
 
   selectInvestors(dataInput) {
@@ -140,6 +141,49 @@ class UI {
 
   listBonds(dataInput) {
     let output = "";
+
+    switch (this.sort.value) {
+      //Sort by name A-Z
+      case "0":
+        dataInput.data.sort((a, b) => a.name > b.name);
+        break;
+      //Sort by name Z-A
+      case "1":
+        dataInput.data.sort((a, b) => a.name < b.name);
+        break;
+      //Sort by duration High to Low
+      case "2":
+        dataInput.data.sort((a, b) => a.duration_months < b.duration_months);
+        break;
+      //Sort by duration Low to High
+      case "3":
+        dataInput.data.sort((a, b) => a.duration_months > b.duration_months);
+        break;
+      //Sort by Maturity High to Low
+      case "4":
+        dataInput.data.sort(
+          (a, b) => a.maturity_interest < b.maturity_interest
+        );
+        break;
+      //Sort by Maturity Low to High
+      case "5":
+        dataInput.data.sort(
+          (a, b) => a.maturity_interest > b.maturity_interest
+        );
+        break;
+      //Sort by Quarterly High to Low
+      case "6":
+        dataInput.data.sort(
+          (a, b) => a.quarterly_interest < b.quarterly_interest
+        );
+        break;
+      //Sort by Quarterly Low to High
+      case "7":
+        dataInput.data.sort(
+          (a, b) => a.quarterly_interest > b.quarterly_interest
+        );
+        break;
+    }
 
     dataInput.data.forEach(bond => {
       const id = bond.id,
