@@ -6,31 +6,39 @@ class UI {
     this.portfolios = document.querySelector("#portfolios");
     this.search = document.querySelector("#search");
     this.sort = document.querySelector("#investor-sort");
+
+    this.toPence = num => num * 100;
+    this.toPounds = num => (num / 100).toFixed(2);
+    this.toPercent = num => (num * 100).toFixed(2);
+    this.calcInvestment = (investment, interest, months) =>
+      investment + ((investment * interest) / 12) * months;
   }
 
   selectInvestors(dataInput) {
     let output = "";
 
     dataInput.data.forEach(investor => {
-      output += `<option value=${investor.id}>${investor.first_name} ${investor.last_name}</option>`;
+      const { id, first_name: firstName, last_name: lastName } = investor,
+        fullName = `${firstName} ${lastName}`;
+
+      output += `<option value=${id}>${fullName}</option>`;
     });
 
     this.investors.innerHTML = output;
   }
 
   listInvestors(dataInput, search) {
-    let output = "",
-      regex;
+    let output = "";
 
     dataInput.data.forEach(investor => {
-      let fullName = `${investor.first_name} ${investor.last_name}`;
-
-      regex = new RegExp(`^${search}`, "i");
+      const { first_name: firstName, last_name: lastName } = investor,
+        fullName = `${firstName} ${lastName}`,
+        regex = new RegExp(`^${search}`, "i");
 
       if (regex.test(fullName) || regex.test(undefined)) {
         output += `
           <li class="list-group-item d-flex justify-content-between align-items-center">
-          ${investor.first_name} ${investor.last_name}
+          ${fullName}
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
           </li>
           `;
@@ -108,16 +116,19 @@ class UI {
 
   portfolioData(dataInput) {
     let output = "";
-
     dataInput.data.forEach(investment => {
-      const bondName = investment.bond.name,
-        type = investment.type,
-        amount = (investment.amount / 100).toFixed(2),
-        expectedReturn = (investment.expected_return / 100).toFixed(2),
-        expectedProfit = (investment.expected_profit / 100).toFixed(2),
-        status = investment.status,
-        investmentId = investment.id,
-        investorId = investment.investor.id;
+      const {
+          type,
+          amount,
+          expected_return: expectedReturnPence,
+          expected_profit: expectedProfitPence,
+          status,
+          id: investmentId
+        } = investment,
+        { name: bondName } = investment.bond,
+        { id: investorId } = investment.investor,
+        expectedReturn = this.toPounds(expectedReturnPence),
+        expectedProfit = this.toPounds(expectedProfitPence);
 
       output += `
       <tr>
@@ -186,25 +197,33 @@ class UI {
     }
 
     dataInput.data.forEach(bond => {
-      const id = bond.id,
+      // Values
+      const {
+          id,
+          name,
+          duration_months: months,
+          maturity_interest: maturity,
+          quarterly_interest: quarterly
+        } = bond,
         investorId = this.investors.value,
-        name = bond.name,
-        months = bond.duration_months,
-        //round percentages
-        quarterlyInterest = (bond.quarterly_interest * 100).toFixed(1) + "%",
-        maturityInterest = (bond.maturity_interest * 100).toFixed(1) + "%",
-        //get investment
         investment = this.investment.value,
-        investmentPence = investment * 100,
-        //calculate investment
-        quarterlyReturnPence =
-          investmentPence +
-          ((investmentPence * bond.quarterly_interest) / 12) * months,
-        maturityReturnPence =
-          investmentPence +
-          ((investmentPence * bond.maturity_interest) / 12) * months,
-        quarterlyReturn = (quarterlyReturnPence / 100).toFixed(2),
-        maturityReturn = (maturityReturnPence / 100).toFixed(2);
+        investmentPence = this.toPence(investment),
+        //Convert to %
+        maturityInterest = this.toPercent(maturity),
+        quarterlyInterest = this.toPercent(quarterly),
+        //Calc investment
+        quarterlyReturnPence = this.calcInvestment(
+          investmentPence,
+          quarterly,
+          months
+        ),
+        maturityReturnPence = this.calcInvestment(
+          investmentPence,
+          maturity,
+          months
+        ),
+        maturityReturn = this.toPounds(maturityReturnPence),
+        quarterlyReturn = this.toPounds(quarterlyReturnPence);
 
       output += `
         <div class="col-6 p-3">
@@ -219,7 +238,7 @@ class UI {
                 <div class="col">
                   <ul class="list-unstyled text-justify text-center">
                     <li class="card-text">
-                      <strong>${maturityInterest}</strong> <small>P.A</small>
+                      <strong>${maturityInterest}%</strong> <small>P.A</small>
                     </li>
                     <li class="card-text text-muted">Interest paid</li>
                     <li class="card-text text-muted"><strong>On Maturity</strong></li>
@@ -231,7 +250,7 @@ class UI {
                 <div class="col">
                   <ul class="list-unstyled text-justify text-center">
                     <li class="card-text">
-                      <strong>${quarterlyInterest}</strong> <small>P.A</small>
+                      <strong>${quarterlyInterest}%</strong> <small>P.A</small>
                     </li>
                     <li class="card-text text-muted">Interest paid</li>
                     <li class="card-text text-muted"><strong>Quarterly</strong></li>
