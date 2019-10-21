@@ -37,7 +37,7 @@ class UI {
 
       if (regex.test(fullName) || regex.test(undefined)) {
         output += `
-          <li class="list-group-item d-flex justify-content-between align-items-center">
+          <li class="list-group-item d-flex justify-content-between align-items-center p-4">
           ${fullName}
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
           </li>
@@ -139,7 +139,7 @@ class UI {
         <td>£${expectedProfit}</td>
         <td>${status}</td>
         <td>
-          <button type="button" class="btn btn-danger" onclick="deleteInvestment('${status}', ${investorId}, ${investmentId})">
+          <button type="button" class="btn btn-sm btn-danger" onclick="deleteInvestment('${status}', ${investorId}, ${investmentId})">
             Cancel
           </button>
         </td>
@@ -226,8 +226,8 @@ class UI {
         quarterlyReturn = this.toPounds(quarterlyReturnPence);
 
       output += `
-        <div class="col-6 p-3">
-        <div class="card">
+        <div class="col-lg-6 p-3">
+        <div class="card h-100">
           <div class="card-header">
             <h3>${name}</h3>
             <p>Duration: ${months} Months</p>
@@ -235,27 +235,27 @@ class UI {
           <div class="card-body">
             <div class="container">
               <div class="row">
-                <div class="col">
+                <div class="col-sm">
                   <ul class="list-unstyled text-justify text-center">
                     <li class="card-text">
-                      <strong>${maturityInterest}%</strong> <small>P.A</small>
+                      <span class="card-text_lg">${maturityInterest}%</span> <small>P.A</small>
                     </li>
                     <li class="card-text text-muted">Interest paid</li>
                     <li class="card-text text-muted"><strong>On Maturity</strong></li>
                     <li class="card-text">Expected return:</li>
-                    <li class="card-text">£${maturityReturn}</li>
+                    <li class="card-text"><strong>£${maturityReturn}</strong></li>
                     <li class="card-text"><button type="button" class="btn btn-primary" onclick="makeInvestment(${investorId}, ${id}, 'maturity', ${maturityReturnPence})">Invest</button></li>
                   </ul>
                 </div>
-                <div class="col">
+                <div class="col-sm">
                   <ul class="list-unstyled text-justify text-center">
                     <li class="card-text">
-                      <strong>${quarterlyInterest}%</strong> <small>P.A</small>
+                    <span class="card-text_lg">${quarterlyInterest}%</span> <small>P.A</small>
                     </li>
                     <li class="card-text text-muted">Interest paid</li>
                     <li class="card-text text-muted"><strong>Quarterly</strong></li>
                     <li class="card-text">Expected return:</li>
-                    <li class="card-text">£${quarterlyReturn}</li>
+                    <li class="card-text"><strong>£${quarterlyReturn}</strong></li>
                     <li class="card-text"><button type="button" class="btn btn-primary" onclick="makeInvestment(${investorId}, ${id}, 'quarterly', ${quarterlyReturnPence})">Invest</button></li>
                   </ul>
                 </div>

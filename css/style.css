@@ -1,3 +1,23 @@
+body {
+  font-size: 1rem;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:focus,
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus:hover {
+  box-shadow: none;
+}
+
 .card-text {
-  font-size: 1.1em;
+  padding: 0.2em 0;
+}
+
+.card-text_lg {
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.rounded-top-right {
+  border-top-right-radius: 0.25rem !important;
 }
