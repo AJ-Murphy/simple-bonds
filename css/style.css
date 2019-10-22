@@ -21,3 +21,7 @@ body {
 .rounded-top-right {
   border-top-right-radius: 0.25rem !important;
 }
+
+.alert {
+  z-index: 1060;
+}

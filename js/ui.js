@@ -6,6 +6,7 @@ class UI {
     this.portfolios = document.querySelector("#portfolios");
     this.search = document.querySelector("#search");
     this.sort = document.querySelector("#investor-sort");
+    this.alerts = document.querySelector("#alerts");
 
     this.toPence = num => num * 100;
     this.toPounds = num => (num / 100).toFixed(2);
@@ -39,7 +40,7 @@ class UI {
         output += `
           <li class="list-group-item d-flex justify-content-between align-items-center p-4">
           ${fullName}
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id})">View Investments</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="getPortfolio(${investor.id}, '${fullName}')">View Investments</button>
           </li>
           `;
       }
@@ -48,7 +49,7 @@ class UI {
     this.investors.innerHTML = output;
   }
 
-  showPortfolio(investorId) {
+  showPortfolio(fullName) {
     let output = "";
 
     output = `
@@ -67,7 +68,7 @@ class UI {
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalScrollableTitle">
-                    investor.bond.name
+                    ${fullName}
                   </h5>
                   <button
                     type="button"
@@ -268,5 +269,37 @@ class UI {
     });
 
     this.bonds.innerHTML = output;
+  }
+
+  alertDanger(msg) {
+    let output = `
+    <div class="alert alert-danger alert-dismissible fade fixed-top show" role="alert">
+      ${msg}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    `;
+    this.alerts.innerHTML = output;
+    setTimeout(() => {
+      output = "";
+      this.alerts.innerHTML = output;
+    }, 6000);
+  }
+
+  alertSuccess(msg) {
+    let output = `
+    <div class="alert alert-success alert-dismissible fade fixed-top show" role="alert">
+      ${msg}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    `;
+    this.alerts.innerHTML = output;
+    setTimeout(() => {
+      output = "";
+      this.alerts.innerHTML = output;
+    }, 6000);
   }
 }

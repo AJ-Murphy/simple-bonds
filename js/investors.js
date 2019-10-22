@@ -15,8 +15,8 @@ data
   .then(results => ui.listInvestors(results))
   .catch(err => console.log(err));
 
-function getPortfolio(investorId) {
-  ui.showPortfolio(investorId);
+function getPortfolio(investorId, fullName) {
+  ui.showPortfolio(fullName);
   data
     .get(`investors/${investorId}/investments`)
     .then(results => ui.portfolioData(results))
@@ -30,8 +30,10 @@ function deleteInvestment(status, investorId, investmentId) {
       .delete(`investors/${investorId}/investments/${investmentId}`)
       .then(results => console.log(results))
       .catch(err => console.log(err));
-    alert("Success");
+    ui.alertSuccess("Investment cancelled!");
+  } else if (status == "committed") {
+    ui.alertDanger("Unable to cancel a committed investment!");
   } else {
-    alert("Failed");
+    ui.alertDanger("Investment already cancelled!");
   }
 }

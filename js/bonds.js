@@ -22,6 +22,8 @@ function makeInvestment(investorId, id, type, amount) {
     .post(`investors/${investorId}/investments`, input)
     .then(results => console.log(results))
     .catch(err => console.log(err));
+
+  ui.alertSuccess("Investment Added!");
 }
 
 // Update bonds with new investor
