@@ -1,7 +1,7 @@
 class Data {
   //get
   async get(url) {
-    const response = await fetch(`http://localhost:3000/${url}`),
+    const response = await fetch(`https://simple-bonds.ajmurphy.co.uk/${url}`),
       responseData = await response.json();
     return responseData;
   }
