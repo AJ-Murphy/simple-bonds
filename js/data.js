@@ -1,14 +1,14 @@
 class Data {
   //get
   async get(url) {
-    const response = await fetch(`http://165.227.229.49:8000/${url}`),
+    const response = await fetch(`http://localhost:3000/${url}`),
       responseData = await response.json();
     return responseData;
   }
 
   //post
   async post(url, data) {
-    const response = await fetch(`http://165.227.229.49:8000/${url}`, {
+    const response = await fetch(`http://localhost:3000/${url}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -20,7 +20,7 @@ class Data {
   }
 
   async delete(url) {
-    const response = await fetch(`http://165.227.229.49:8000/${url}`, {
+    const response = await fetch(`http://localhost:3000/${url}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json"

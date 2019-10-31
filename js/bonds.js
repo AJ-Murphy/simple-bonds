@@ -11,6 +11,7 @@ data
   .then(results => ui.listBonds(results))
   .catch(err => console.log(err));
 
+/*
 function makeInvestment(investorId, id, type, amount) {
   let input = {
     bond_id: id,
@@ -55,3 +56,4 @@ ui.sort.addEventListener("change", () => {
     .then(results => ui.listBonds(results))
     .catch(err => console.log(err));
 });
+*/

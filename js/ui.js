@@ -18,7 +18,7 @@ class UI {
   selectInvestors(dataInput) {
     let output = "";
 
-    dataInput.data.forEach(investor => {
+    dataInput.forEach(investor => {
       const { id, first_name: firstName, last_name: lastName } = investor,
         fullName = `${firstName} ${lastName}`;
 
