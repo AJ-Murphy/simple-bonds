@@ -18,7 +18,7 @@ data
 function getPortfolio(investorId, fullName) {
   ui.showPortfolio(fullName);
   data
-    .get(`investors/${investorId}/investments`)
+    .get(`investments/${investorId}`)
     .then(results => ui.portfolioData(results))
     .catch(err => console.log(err));
 }

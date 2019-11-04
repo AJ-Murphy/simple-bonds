@@ -30,8 +30,8 @@ class UI {
 
   listInvestors(dataInput, search) {
     let output = "";
-
-    dataInput.data.forEach(investor => {
+    console.log(dataInput);
+    dataInput.forEach(investor => {
       const { first_name: firstName, last_name: lastName } = investor,
         fullName = `${firstName} ${lastName}`,
         regex = new RegExp(`^${search}`, "i");
@@ -117,6 +117,8 @@ class UI {
 
   portfolioData(dataInput) {
     let output = "";
+    console.log(dataInput);
+
     dataInput.data.forEach(investment => {
       const {
           type,
@@ -124,10 +126,10 @@ class UI {
           expected_return: expectedReturnPence,
           expected_profit: expectedProfitPence,
           status,
-          id: investmentId
+          id: investmentId,
+          bond_name: bondName,
+          investor_id: investorId
         } = investment,
-        { name: bondName } = investment.bond,
-        { id: investorId } = investment.investor,
         expectedReturn = this.toPounds(expectedReturnPence),
         expectedProfit = this.toPounds(expectedProfitPence);
 
@@ -157,47 +159,39 @@ class UI {
     switch (this.sort.value) {
       //Sort by name A-Z
       case "0":
-        dataInput.data.sort((a, b) => a.name > b.name);
+        dataInput.sort((a, b) => a.name > b.name);
         break;
       //Sort by name Z-A
       case "1":
-        dataInput.data.sort((a, b) => a.name < b.name);
+        dataInput.sort((a, b) => a.name < b.name);
         break;
       //Sort by duration High to Low
       case "2":
-        dataInput.data.sort((a, b) => a.duration_months < b.duration_months);
+        dataInput.sort((a, b) => a.duration_months < b.duration_months);
         break;
       //Sort by duration Low to High
       case "3":
-        dataInput.data.sort((a, b) => a.duration_months > b.duration_months);
+        dataInput.sort((a, b) => a.duration_months > b.duration_months);
         break;
       //Sort by Maturity High to Low
       case "4":
-        dataInput.data.sort(
-          (a, b) => a.maturity_interest < b.maturity_interest
-        );
+        dataInput.sort((a, b) => a.maturity_interest < b.maturity_interest);
         break;
       //Sort by Maturity Low to High
       case "5":
-        dataInput.data.sort(
-          (a, b) => a.maturity_interest > b.maturity_interest
-        );
+        dataInput.sort((a, b) => a.maturity_interest > b.maturity_interest);
         break;
       //Sort by Quarterly High to Low
       case "6":
-        dataInput.data.sort(
-          (a, b) => a.quarterly_interest < b.quarterly_interest
-        );
+        dataInput.sort((a, b) => a.quarterly_interest < b.quarterly_interest);
         break;
       //Sort by Quarterly Low to High
       case "7":
-        dataInput.data.sort(
-          (a, b) => a.quarterly_interest > b.quarterly_interest
-        );
+        dataInput.sort((a, b) => a.quarterly_interest > b.quarterly_interest);
         break;
     }
 
-    dataInput.data.forEach(bond => {
+    dataInput.forEach(bond => {
       // Values
       const {
           id,
